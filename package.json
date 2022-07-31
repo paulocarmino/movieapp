@@ -24,7 +24,9 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.0",
     "react-icons": "^4.4.0",
-    "swr": "^1.1.2"
+    "swr": "^1.1.2",
+    "use-local-storage": "^2.3.6",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

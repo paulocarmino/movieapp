@@ -1,17 +1,44 @@
+import axios from 'axios'
 import { useRouter } from 'next/router'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { mutate } from 'swr'
 import BackButton from '@/components/BackButton'
 import Button from "@/components/Button"
 import getMovieDetails from '@/queries/getMovieDetails'
 import formatDate from '@/utils/formatDate'
 
+const getBroweserId = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem('movieapp-browser-id')
+  }
+}
+
 const DetailsPage = () => {
   const router = useRouter()
   const { movieId } = router.query
 
-  const { movieDetails } = getMovieDetails(movieId)
+  const { movieDetails } = getMovieDetails(movieId, getBroweserId())
 
-  console.log(movieDetails)
+  const handleFavoriteAction = async (type: string) => {
+    if (type === 'favorite') {
+      try {
+        await axios.post(`/api/movies/${movieId}/favorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
+
+        mutate(`/api/movies/${movieId}`)
+      } catch (error) {
+        console.error(error)
+      }
+      return
+    }
+
+    try {
+      await axios.post(`/api/movies/${movieId}/unfavorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
+
+      mutate(`/api/movies/${movieId}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <>
@@ -28,7 +55,10 @@ const DetailsPage = () => {
             </div>
 
             <h1 className="mb-6 text-5xl font-extrabold tracking-tight">{movieDetails?.original_title}</h1>
-            <Button icon={<AiOutlineHeart size={16} />}>Add aos favoritos</Button>
+            <div>
+              {!movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('favorite')} icon={<AiOutlineHeart size={16} />}>Add aos favoritos</Button>}
+              {movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('unfavorite')} icon={<AiFillHeart size={16} />}>Favorito</Button>}
+            </div>
           </div>
 
           <div className="mt-6">

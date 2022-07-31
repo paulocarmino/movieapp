@@ -1,33 +1,68 @@
+import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 
+import { mutate } from 'swr'
 import MovieBox from '@/components/MovieBox'
 import SearchInput from '@/components/SearchInput'
 import searchMovies from '@/queries/searchMovies'
-import formatDate from '@/utils/formatDate'
+
+const getBroweserId = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem('movieapp-browser-id')
+  }
+}
 
 export default function Home() {
   const router = useRouter()
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
   const [searchTerm, setSearchTerm] = useState<string | string[] | null | undefined>(undefined)
+  const { register, handleSubmit, setValue } = useForm();
 
   const { search } = router.query
-
-  console.log(search)
-
-  const { moviesList } = searchMovies(searchTerm)
+  const { moviesList } = searchMovies(searchTerm, getBroweserId())
 
   const onSubmit = ({ searchTerm }: any) => {
     router.push(`/?search=${searchTerm}`)
   }
 
+  const handleFavoriteAction = async (e: React.MouseEvent<HTMLDivElement>, movie: any, type: string) => {
+    e.stopPropagation()
+
+    if (type === 'favorite') {
+      try {
+        await axios.post(`/api/movies/${movie.id}/favorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
+
+        mutate(`/api/movies/search?searchTerm=${searchTerm}`)
+      } catch (error) {
+        console.error(error)
+      }
+      return
+    }
+
+    try {
+      await axios.post(`/api/movies/${movie.id}/unfavorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
+
+      mutate(`/api/movies/search?searchTerm=${searchTerm}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleBoxClick = (movieId: number) => {
+    router.push(`/details/${movieId}`)
+  }
 
   useEffect(() => {
     if (search) {
       setSearchTerm(search)
       setValue('searchTerm', search)
+      return
     }
+
+    setSearchTerm(null)
+    setValue('searchTerm', '')
+
   }, [search])
 
   return (
@@ -43,17 +78,15 @@ export default function Home() {
 
           {moviesList?.map((movie: any) => {
             return (
-              <div key={movie.id} onClick={() => router.push(`/details/${movie.id}`)}>
+              <div key={movie.id}>
                 <MovieBox
-                  cover={movie.poster_path}
-                  title={movie.original_title}
-                  year={formatDate(movie.release_date)}
-                  isFavorited={false}
+                  movie={movie}
+                  handleFavoriteAction={handleFavoriteAction}
+                  handleBoxClick={handleBoxClick}
                 />
               </div>
             )
           })}
-
         </div>
       </div>
     </div>
