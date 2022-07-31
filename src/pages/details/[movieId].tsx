@@ -42,7 +42,9 @@ const DetailsPage = () => {
               <span className="text-xs tracking-wider text-gray-400 uppercase">Cast</span>
 
               <div>
-                <p className="text-base">TODO</p>
+                {movieDetails?.cast.map((castMember: any, index: number) => (
+                  <p key={index} className="text-base">{castMember.name}</p>
+                ))}
               </div>
             </div>
 
@@ -60,7 +62,9 @@ const DetailsPage = () => {
               <span className="text-xs tracking-wider text-gray-400 uppercase">Director</span>
 
               <div>
-                <p className="text-base">TODO</p>
+                {movieDetails?.directors.map((director: any, index: number) => (
+                  <p key={index} className="text-base">{director.name}</p>
+                ))}
               </div>
             </div>
           </div>
