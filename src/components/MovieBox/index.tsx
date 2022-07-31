@@ -9,7 +9,7 @@ export type MovieBoxProps = {
 
 const MovieBox = ({ cover, title, year, isFavorited }: MovieBoxProps) => {
   return (
-    <div className="relative w-[180px] h-[267px]">
+    <div className="relative w-[180px] h-[267px] cursor-pointer">
       <div className='group flex flex-col justify-between p-2 h-full hover:bg-slate-500/70'>
         <div>
           {isFavorited && (
