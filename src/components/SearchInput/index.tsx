@@ -3,7 +3,7 @@ import { TbSearch } from 'react-icons/tb'
 
 const SearchInput = React.forwardRef<HTMLInputElement>(({ ...rest }, ref) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center w-full">
       <div className="w-full">
         <label htmlFor="search" className="sr-only">
           Search
