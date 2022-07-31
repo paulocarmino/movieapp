@@ -1,19 +1,34 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from "react-hook-form"
 
 import MovieBox from '@/components/MovieBox'
 import SearchInput from '@/components/SearchInput'
 import searchMovies from '@/queries/searchMovies'
+import formatDate from '@/utils/formatDate'
 
 export default function Home() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const [searchTerm, setSearchTerm] = useState(null)
+  const router = useRouter()
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
+  const [searchTerm, setSearchTerm] = useState<string | string[] | null | undefined>(undefined)
+
+  const { search } = router.query
+
+  console.log(search)
 
   const { moviesList } = searchMovies(searchTerm)
-  const router = useRouter()
 
-  const onSubmit = ({ searchTerm }: any) => setSearchTerm(searchTerm)
+  const onSubmit = ({ searchTerm }: any) => {
+    router.push(`/?search=${searchTerm}`)
+  }
+
+
+  useEffect(() => {
+    if (search) {
+      setSearchTerm(search)
+      setValue('searchTerm', search)
+    }
+  }, [search])
 
   return (
     <div className="flex flex-col w-full">
@@ -32,7 +47,7 @@ export default function Home() {
                 <MovieBox
                   cover={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                   title={movie.original_title}
-                  year={movie.release_date}
+                  year={formatDate(movie.release_date)}
                   isFavorited={false}
                 />
               </div>

@@ -16,7 +16,7 @@ const SearchInput = React.forwardRef<HTMLInputElement>(({ ...rest }, ref) => {
             ref={ref}
             id="search"
             name="search"
-            className="block py-2 pr-3 pl-10 w-full text-sm placeholder:text-gray-500 focus:text-gray-900 focus:placeholder:text-gray-400 bg-white rounded-md border border-gray-300 focus:outline-none sm:text-sm"
+            className="block py-2 pr-3 pl-10 w-full text-sm placeholder:text-gray-500 text-gray-900 focus:text-gray-900 bg-white rounded-md border border-gray-300 focus:outline-none sm:text-sm"
             placeholder="Search movies..."
             type="search"
             {...rest}

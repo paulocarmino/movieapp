@@ -1,14 +1,14 @@
 import axios from 'axios'
 import useSWR from 'swr'
 
-export default function searchMovies(searchParam?: string | string[] | null | undefined) {
+export default function getMovieDetails(movieId?: string | string[] | undefined) {
   const fetcher = (url: string) => axios(url).then((r) => r.data)
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { data, error } = useSWR(searchParam ? `/api/movies/search?searchTerm=${searchParam}` : null, fetcher)
+  const { data, error } = useSWR(movieId ? `/api/movies/${movieId}` : null, fetcher)
 
   return {
-    moviesList: data,
+    movieDetails: data,
     isLoading: !error && !data,
     isError: !data
   }
