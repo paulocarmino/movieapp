@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - '127.0.0.1:5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: QDaRPMAZnmv6aJ
+      POSTGRES_DB: boilerplate-nextjs
+  mailcatcher:
+    image: dockage/mailcatcher:0.7.1
+    ports:
+      - '1080:1080'
+      - '1025:1025'
