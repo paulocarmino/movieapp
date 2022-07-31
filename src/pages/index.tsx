@@ -45,7 +45,7 @@ export default function Home() {
             return (
               <div key={movie.id} onClick={() => router.push(`/details/${movie.id}`)}>
                 <MovieBox
-                  cover={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  cover={movie.poster_path}
                   title={movie.original_title}
                   year={formatDate(movie.release_date)}
                   isFavorited={false}

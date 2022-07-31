@@ -35,7 +35,8 @@ const MovieBox = ({ cover, title, year, isFavorited }: MovieBoxProps) => {
         </div>
       </div>
 
-      <img src={cover} alt={title} className="absolute top-0 left-0 -z-10 rounded-lg" />
+      {!!cover && <img src={`https://image.tmdb.org/t/p/w500/${cover}`} alt={title} className="absolute top-0 left-0 -z-10 rounded-lg" />}
+      {!cover && <div className='flex absolute top-0 left-0 -z-10 justify-center items-center w-full h-full text-3xl text-center text-gray-700 bg-gray-800 rounded-lg'>WHITOUT POSTER</div>}
     </div>
   )
 }
