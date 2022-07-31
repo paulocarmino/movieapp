@@ -1,3 +1,4 @@
+import { AiOutlineHeart } from 'react-icons/ai'
 import Button from "@/components/Button"
 
 const DetailsPage = () => {
@@ -12,7 +13,7 @@ const DetailsPage = () => {
           </div>
 
           <h1 className="mb-6 text-5xl font-extrabold tracking-tight">Capitã Marvel</h1>
-          <Button>Add aos favoritos</Button>
+          <Button icon={<AiOutlineHeart size={16} />}>Add aos favoritos</Button>
         </div>
 
         <div className="mt-6">
