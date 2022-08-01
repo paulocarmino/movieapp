@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> should render the heading 1`] = `
+<button
+  class="inline-flex items-center py-2 px-3 text-sm leading-4 text-gray-100 hover:bg-gray-800 rounded-md border border-gray-100 focus:outline-none shadow-sm"
+  type="button"
+>
+  Login
+</button>
+`;

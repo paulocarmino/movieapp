@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IsError /> should render the component 1`] = `
+<div
+  class="my-10 text-center"
+>
+  <svg
+    class="mx-auto w-24 h-24 text-gray-100"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+  <h3
+    class="mt-2 text-sm font-medium text-gray-100"
+  >
+    Error while searching!
+  </h3>
+  <p
+    class="mt-1 text-sm text-gray-400"
+  >
+    No results found for you search term.
+  </p>
+  <div
+    class="flex justify-center items-center my-4 h-8"
+  >
+    <button
+      class="inline-flex items-center py-2 px-3 text-sm leading-4 text-gray-100 hover:bg-gray-800 rounded-md border border-gray-100 focus:outline-none shadow-sm"
+      data-testid="action-button"
+      type="button"
+    >
+      Try again
+    </button>
+  </div>
+</div>
+`;

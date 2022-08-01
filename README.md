@@ -1,50 +1,132 @@
-# Next.js + Tailwind CSS + TypeScript Starter
+<p align="center"><img src="https://res.cloudinary.com/paulocarmino/image/upload/v1659345782/image_1_fivcay.svg"></p>
+<h1 align="center" style="font-size:4em">MovieApp</h1>
+<p align="center">Um simples app para pesquisar filmes :)</p>
+<p align="center"><img width=100% src="https://res.cloudinary.com/paulocarmino/image/upload/v1659335399/movieapp_cfv7zd.png"></p>
 
-This is a [Next.js](https://nextjs.org/) boilerplate using [TailwindCSS](https://tailwindcss.com/) and other cool stuff.
+<p align="center">Experimente o app acessando a url abaixo:</p>
+<p align="center"><a href="https://movieapp.vercel.app/">https://movieapp.vercel.app</a></p>
 
-## What is inside?
+# Tecnologias envolvidas
 
-This project uses lot of stuff as:
+- React
+- Next.JS
+- TailwindCSS
+- Prisma
 
-[WIP]
+# Features
 
-## Getting Started
+- Pesquisa de filmes
+- Favoritar filmes por browser (localStorage e Prisma)
+- Components desenhados no Storybook
+- Backend via API Routes (NextJS)
+- Testes automatizados (Jest)
+- Imagem Docker
+- CI/CD e deploy na Vercel
+- App responsivo
 
-First, run the development server:
+# Storybook
 
-```bash
-npm run dev
-# or
-yarn dev
+Para ver os components desenvolvidos para esse app no storybook, clique no link abaixo:
+
+[https://paulocarmino.github.io/movieapp](https://paulocarmino.github.io/movieapp)
+
+# Rodando o projeto com docker-compose
+
+```
+# Clone esse repositorio
+git clone https://github.com/paulocarmino/movieapp
+
+# Faça o build da imagem
+docker-compose build
+
+# Inicie o banco e a aplicação
+docker-compose up
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Desenvolvendo o projeto
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+# Clone esse repositorio
+git clone https://github.com/paulocarmino/movieapp
 
-## Commands
+# Entre no repositorio
+cd movieapp
 
-- `dev`: runs your application on `localhost:3000`
-- `build`: creates the production build version
-- `start`: starts a simple server with the build production code
-- `lint`: runs the linter in all components and pages
-- `test`: runs jest to test all components and pages
-- `test:watch`: runs jest in watch mode
-- `generate ComponentName`: to generate a component structure
-- `storybook`: runs storybook on `localhost:6006`
-- `build-storybook`: create the build version of storybook
+# Instale as dependencias
+yarn install
 
-## Learn More
+# Inicie o banco pelo docker-compose
+docker-compose up -d postgres
 
-To learn more about Next.js, take a look at the following resources:
+# Aplique as migrations no banco
+yarn run prisma migrate deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Build o projeto
+yarn run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Rodando o projeto
+yarn run dev
+```
 
-## Deploy on Vercel
+# API Routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Explicação Header Browser-Id
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Em todas as requisições pode ser passado o header `Browser-Id` para identificação unica do browser e persistência dos favoritos.
+
+Exemplo:
+
+| Header     | Value                                |
+| ---------- | ------------------------------------ |
+| Browser-Id | d9cdc12c-79ea-443c-b1b9-efb6c314d653 |
+
+## End-point: Search movie by name
+
+### Method: GET
+
+> ```
+> /api/movies/search?searchTerm=[searchTerm]
+> ```
+
+### Query Params
+
+| Param      | type   |
+| ---------- | ------ |
+| searchTerm | string |
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: Get movie details
+
+### Method: GET
+
+> ```
+> /api/movies/[movieId]
+> ```
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: Favorite a movie
+
+### Method: POST
+
+> ```
+> /api/movies/[movieId]/favorite
+> ```
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: Unfavorite a movie
+
+### Method: POST
+
+> ```
+> /api/movies/353081/unfavorite
+> ```
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+# Licença
+
+MIT

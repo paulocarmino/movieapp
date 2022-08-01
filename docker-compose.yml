@@ -7,10 +7,17 @@ services:
       - '127.0.0.1:5432:5432'
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: QDaRPMAZnmv6aJ
-      POSTGRES_DB: boilerplate-nextjs
-  mailcatcher:
-    image: dockage/mailcatcher:0.7.1
+      POSTGRES_PASSWORD: xFrBQKZEdZKp
+      POSTGRES_DB: movieapp
+
+  app:
+    build: .
     ports:
-      - '1080:1080'
-      - '1025:1025'
+      - 4000:4000
+    command: >
+      sh -c "npx prisma migrate deploy
+      && yarn start -p 4000"
+    environment:
+      DATABASE_URL: postgresql://postgres:xFrBQKZEdZKp@postgres:5432/movieapp?schema=public
+    depends_on:
+      - postgres

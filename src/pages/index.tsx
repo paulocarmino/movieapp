@@ -1,63 +1,127 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { FieldValues, useForm } from "react-hook-form"
+import { MdClear } from 'react-icons/md'
+import { mutate } from 'swr'
 
-export default function Home() {
+import Button from '@/components/Button'
+import EmptyState from '@/components/EmptyState'
+import IsError from '@/components/IsError'
+import Loading from '@/components/Loading'
+import MovieBox, { MovieType } from '@/components/MovieBox'
+import SearchInput from '@/components/SearchInput'
+import searchMovies from '@/queries/searchMovies'
+import axios from '@/utils/axios'
+import { getBroweserId } from '@/utils/helpers'
+
+const Home = () => {
+  const router = useRouter()
+  const [searchTerm, setSearchTerm] = useState<string | string[] | null | undefined>(undefined)
+  const { register, handleSubmit, setValue } = useForm();
+  const { search } = router.query
+
+  const { moviesList, isLoading, isError } = searchMovies(searchTerm, getBroweserId())
+
+  const onSubmit = ({ searchTerm }: FieldValues) => {
+    router.push(`/?search=${searchTerm}`)
+  }
+
+  const handleFavoriteAction = async (e: React.MouseEvent<HTMLDivElement>, movieId: number, type: string) => {
+    e.stopPropagation()
+
+    if (type === 'favorite') {
+      favoriteMovie(movieId)
+      return
+    } else {
+      unfavoriteMovie(movieId)
+    }
+  }
+
+  const favoriteMovie = async (movieId: number) => {
+    try {
+      await axios.post(`/api/movies/${movieId}/favorite`, null)
+
+      mutate(`/api/movies/search?searchTerm=${searchTerm}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const unfavoriteMovie = async (movieId: number) => {
+    try {
+      await axios.post(`/api/movies/${movieId}/unfavorite`, null)
+
+      mutate(`/api/movies/search?searchTerm=${searchTerm}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleBoxClick = (movieId: number) => {
+    router.push(`/details/${movieId}`)
+  }
+
+  const clearResults = () => {
+    setSearchTerm(null)
+    setValue('searchTerm', '')
+  }
+
+  useEffect(() => {
+    if (search) {
+      setSearchTerm(search)
+      setValue('searchTerm', search)
+      return
+    }
+
+    clearResults()
+  }, [search])
+
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="flex flex-col w-full">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <SearchInput
+          {...register("searchTerm")}
+        />
+      </form>
 
-      <main>
-        <section className="bg-white">
-          <div className="flex flex-col justify-center items-center min-h-screen text-center layout">
-            <Image
-              src="/vercel.svg"
-              width={48}
-              height={48}
-              className="text-5xl"
-              alt="Vercel Logo"
-            />
-            <h1 className="mt-4 text-4xl font-bold">Next.js + Tailwind CSS + TypeScript Starter</h1>
+      <div className='mx-auto'>
+        {!searchTerm && (
+          <EmptyState />
+        )}
 
-            <p className="mt-2 text-sm text-gray-800">
-              A starter for Next.js, Tailwind CSS, and TypeScript with Absolute Import, PrismaJS and
-              NextAuth, pre-configured with Husky.
-            </p>
-            <p className="group inline-flex gap-[0.25em] items-center mt-2 text-sm font-semibold text-gray-700">
-              <a href="https://github.com/paulocarmino/boilerplate-nextjs">
-                See the repository
-              </a>
-              <svg
-                viewBox="0 0 16 16"
-                height="1em"
-                width="1em"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="relative transition-transform duration-200 group-hover:translate-x-0 motion-safe:-translate-x-1"
-              >
-                <path
-                  fill="currentColor"
-                  d="M7.28033 3.21967C6.98744 2.92678 6.51256 2.92678 6.21967 3.21967C5.92678 3.51256 5.92678 3.98744 6.21967 4.28033L7.28033 3.21967ZM11 8L11.5303 8.53033C11.8232 8.23744 11.8232 7.76256 11.5303 7.46967L11 8ZM6.21967 11.7197C5.92678 12.0126 5.92678 12.4874 6.21967 12.7803C6.51256 13.0732 6.98744 13.0732 7.28033 12.7803L6.21967 11.7197ZM6.21967 4.28033L10.4697 8.53033L11.5303 7.46967L7.28033 3.21967L6.21967 4.28033ZM10.4697 7.46967L6.21967 11.7197L7.28033 12.7803L11.5303 8.53033L10.4697 7.46967Z"
-                />
-                <path
-                  stroke="currentColor"
-                  d="M1.75 8H11"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  className="opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-0 motion-safe:-translate-x-1 origin-left"
-                />
-              </svg>
-            </p>
+        {isLoading && (
+          <Loading />
+        )}
 
-            <footer className="absolute bottom-2 text-gray-700">
-              © {new Date().getFullYear()} By{' '}
-              <a href="https://paulocarmino.com?ref=boilerplate-nextjs">Paulo Carmino</a>
-            </footer>
+        {isError && (
+          <IsError action={clearResults} />
+        )}
+
+        {moviesList && (
+          <div>
+            <div className='flex justify-center items-center my-4 h-8'>
+              <Button onClick={() => clearResults()} icon={<MdClear size={16} />}>Clear results</Button>
+            </div>
+
+            <div className='grid grid-cols-2 grid-flow-row gap-6 mt-8 md:grid-cols-3 lg:grid-cols-5'>
+              {moviesList?.map((movie: MovieType) => {
+                return (
+                  <div key={movie.id}>
+                    <MovieBox
+                      movie={movie}
+                      handleFavoriteAction={handleFavoriteAction}
+                      handleBoxClick={handleBoxClick}
+                    />
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </section>
-      </main>
+        )}
+
+      </div>
     </div>
   )
 }
+
+export default Home
