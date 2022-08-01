@@ -16,7 +16,13 @@ export const findFavoriteMovies = (favoritesMoviesIds: any, moviesList: any) => 
 
 export const getBroweserId = () => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem('movieapp-browser-id')
+    const browserId = localStorage.getItem('movieapp-browser-id')
+
+    axios.defaults.headers = {
+      ['browser-id']: browserId
+    } as HeaderPropertiesWithBrowserId
+
+    return browserId
   }
 }
 
