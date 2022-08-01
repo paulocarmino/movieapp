@@ -1,10 +1,13 @@
 import { useRouter } from 'next/router'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { GiStarsStack } from 'react-icons/gi'
+import { MdOutlinePoll } from 'react-icons/md'
 import { mutate } from 'swr'
 
 import BackButton from '@/components/BackButton'
 import Button from "@/components/Button"
 import Loading from '@/components/Loading'
+import StatGroup from '@/components/StatGroup'
 import getMovieDetails from '@/queries/getMovieDetails'
 import axios from '@/utils/axios'
 import formatDate from '@/utils/formatDate'
@@ -64,9 +67,17 @@ const DetailsPage = () => {
             </div>
 
             <h1 className="mb-6 text-5xl font-extrabold tracking-tight">{movieDetails?.original_title}</h1>
-            <div>
+            <div className='flex'>
               {!movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('favorite')} icon={<AiOutlineHeart size={16} />}>Add aos favoritos</Button>}
               {movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('unfavorite')} icon={<AiFillHeart size={16} />}>Favorito</Button>}
+
+              <div className='ml-2'>
+                <StatGroup icon={<MdOutlinePoll size={20} />} title="Vote Average" value={Number(movieDetails?.vote_average).toFixed(1)} />
+              </div>
+
+              <div className='ml-2'>
+                <StatGroup icon={<GiStarsStack size={20} />} title="Popularity" value={Number(movieDetails?.popularity).toFixed()} />
+              </div>
             </div>
           </div>
 

@@ -16,7 +16,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((
     <button
       ref={ref}
       type="button"
-      className="inline-flex items-center py-2 px-3 text-sm leading-4 text-gray-400 hover:bg-gray-800 rounded-md border border-gray-400 focus:outline-none shadow-sm"
+      className="inline-flex items-center py-2 px-3 text-sm leading-4 text-gray-100 hover:bg-gray-800 rounded-md border border-gray-100 focus:outline-none shadow-sm"
       {...rest}
     >
       {!!icon && (
