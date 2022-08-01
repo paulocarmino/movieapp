@@ -1,18 +1,14 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { mutate } from 'swr'
+
 import BackButton from '@/components/BackButton'
 import Button from "@/components/Button"
 import Loading from '@/components/Loading'
 import getMovieDetails from '@/queries/getMovieDetails'
+import axios from '@/utils/axios'
 import formatDate from '@/utils/formatDate'
-
-const getBroweserId = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem('movieapp-browser-id')
-  }
-}
+import { getBroweserId } from '@/utils/helpers'
 
 const DetailsPage = () => {
   const router = useRouter()
@@ -22,18 +18,16 @@ const DetailsPage = () => {
 
   const handleFavoriteAction = async (type: string) => {
     if (type === 'favorite') {
-      try {
-        await axios.post(`/api/movies/${movieId}/favorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
-
-        mutate(`/api/movies/${movieId}`)
-      } catch (error) {
-        console.error(error)
-      }
+      favoriteMovie(Number(movieId))
       return
+    } else {
+      unfavoriteMovie(Number(movieId))
     }
+  }
 
+  const favoriteMovie = async (movieId: number) => {
     try {
-      await axios.post(`/api/movies/${movieId}/unfavorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
+      await axios.post(`/api/movies/${movieId}/favorite`)
 
       mutate(`/api/movies/${movieId}`)
     } catch (error) {
@@ -41,15 +35,24 @@ const DetailsPage = () => {
     }
   }
 
+  const unfavoriteMovie = async (movieId: number) => {
+    try {
+      await axios.post(`/api/movies/${movieId}/unfavorite`, null)
 
-  if (isLoading) {
+      mutate(`/api/movies/${movieId}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  if (!movieDetails || isLoading) {
     return <Loading />
   }
 
   return (
     <>
       <div className='flex items-center my-4 h-8'>
-        <BackButton size={26} onClick={() => router.back()} />
+        <BackButton size={26} action={() => router.back()} />
       </div>
 
       <div className="flex flex-col-reverse max-h-[1000px] lg:flex-row">

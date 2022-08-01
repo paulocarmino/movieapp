@@ -22,7 +22,7 @@ const MovieBox = ({ movie, handleFavoriteAction = () => { }, handleBoxClick = ()
       <div onClick={() => handleBoxClick(movie.id)} data-testid="moviebox-action" className='group flex flex-col justify-between p-2 h-full hover:bg-slate-200/80 rounded-lg'>
         <div>
           {movie?.isFavorited && (
-            <div onClick={(e: React.MouseEvent<HTMLDivElement>) => handleFavoriteAction(e, movie, 'unfavorite')}>
+            <div onClick={(e: React.MouseEvent<HTMLDivElement>) => handleFavoriteAction(e, movie.id, 'unfavorite')}>
               <AiFillHeart
                 className='text-red-600 opacity-100 cursor-pointer'
                 size={26}
@@ -32,7 +32,7 @@ const MovieBox = ({ movie, handleFavoriteAction = () => { }, handleBoxClick = ()
           )}
 
           {!movie?.isFavorited && (
-            <div onClick={(e: React.MouseEvent<HTMLDivElement>) => handleFavoriteAction(e, movie, 'favorite')}>
+            <div onClick={(e: React.MouseEvent<HTMLDivElement>) => handleFavoriteAction(e, movie.id, 'favorite')}>
               <AiOutlineHeart
                 className='text-red-600 opacity-0 group-hover:opacity-100 cursor-pointer'
                 size={26}

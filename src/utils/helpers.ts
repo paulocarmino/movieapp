@@ -5,3 +5,9 @@ export const findFavoriteMovies = (favoritesMoviesIds: any, moviesList: any) => 
 
   return favoritedMovies
 }
+
+export const getBroweserId = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem('movieapp-browser-id')
+  }
+}

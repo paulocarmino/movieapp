@@ -1,10 +1,9 @@
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import { MdClear } from 'react-icons/md'
-
 import { mutate } from 'swr'
+
 import Button from '@/components/Button'
 import EmptyState from '@/components/EmptyState'
 import IsError from '@/components/IsError'
@@ -12,14 +11,10 @@ import Loading from '@/components/Loading'
 import MovieBox from '@/components/MovieBox'
 import SearchInput from '@/components/SearchInput'
 import searchMovies from '@/queries/searchMovies'
+import axios from '@/utils/axios'
+import { getBroweserId } from '@/utils/helpers'
 
-const getBroweserId = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.getItem('movieapp-browser-id')
-  }
-}
-
-export default function Home() {
+const Home = () => {
   const router = useRouter()
   const [searchTerm, setSearchTerm] = useState<string | string[] | null | undefined>(undefined)
   const { register, handleSubmit, setValue } = useForm();
@@ -31,22 +26,30 @@ export default function Home() {
     router.push(`/?search=${searchTerm}`)
   }
 
-  const handleFavoriteAction = async (e: React.MouseEvent<HTMLDivElement>, movie: any, type: string) => {
+  const handleFavoriteAction = async (e: React.MouseEvent<HTMLDivElement>, movieId: number, type: string) => {
     e.stopPropagation()
 
     if (type === 'favorite') {
-      try {
-        await axios.post(`/api/movies/${movie.id}/favorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
-
-        mutate(`/api/movies/search?searchTerm=${searchTerm}`)
-      } catch (error) {
-        console.error(error)
-      }
+      favoriteMovie(movieId)
       return
+    } else {
+      unfavoriteMovie(movieId)
     }
+  }
 
+  const favoriteMovie = async (movieId: number) => {
     try {
-      await axios.post(`/api/movies/${movie.id}/unfavorite`, null, { headers: { 'Browser-Id': String(getBroweserId()) } })
+      await axios.post(`/api/movies/${movieId}/favorite`, null)
+
+      mutate(`/api/movies/search?searchTerm=${searchTerm}`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const unfavoriteMovie = async (movieId: number) => {
+    try {
+      await axios.post(`/api/movies/${movieId}/unfavorite`, null)
 
       mutate(`/api/movies/search?searchTerm=${searchTerm}`)
     } catch (error) {
@@ -120,3 +123,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home

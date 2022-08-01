@@ -1,7 +1,7 @@
-import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { findFavoriteMovies } from '@/utils/moviesHelpers'
+import axios from '@/utils/axios'
+import { findFavoriteMovies } from '@/utils/helpers'
 import prisma from '@/utils/prisma'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
