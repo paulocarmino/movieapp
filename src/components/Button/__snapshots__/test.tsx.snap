@@ -2,7 +2,7 @@
 
 exports[`<Button /> should render the heading 1`] = `
 <button
-  class="inline-flex items-center py-2 px-3 text-sm font-medium leading-4 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md border border-transparent focus:outline-none shadow-sm"
+  class="inline-flex items-center py-2 px-3 text-sm leading-4 text-gray-400 hover:bg-gray-800 rounded-md border border-gray-400 focus:outline-none shadow-sm"
   type="button"
 >
   Login

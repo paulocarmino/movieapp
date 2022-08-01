@@ -5,17 +5,8 @@ export default {
   title: 'MovieBox',
   component: MovieBox,
   argTypes: {
-    cover: {
-      type: 'string'
-    },
-    title: {
-      type: 'string'
-    },
-    year: {
-      type: 'number'
-    },
-    isFavorited: {
-      type: 'boolean'
+    movie: {
+      type: undefined
     }
   }
 } as Meta
@@ -23,8 +14,35 @@ export default {
 export const Default: Story<MovieBoxProps> = (args) => <MovieBox {...args} />
 
 Default.args = {
-  cover: 'https://img.elo7.com.br/product/zoom/23646C7/big-poster-filme-capita-marvel-tamanho-90x60-cm-presente-geek.jpg',
-  title: 'Capitã Marvel',
-  year: 2019,
-  isFavorited: false
+  movie: {
+    id: 438148,
+    poster_path: 'https://image.tmdb.org/t/p/w200//wKiOkZTN9lUUUNZLmtnwubZYONg.jpg',
+    title: 'Minions: The Rise of Gru',
+    release_date: '2019-09-02',
+    isFavorited: false
+  }
+}
+
+export const Favorited: Story<MovieBoxProps> = (args) => <MovieBox {...args} />
+
+Favorited.args = {
+  movie: {
+    id: 438148,
+    poster_path: 'https://image.tmdb.org/t/p/w200//wKiOkZTN9lUUUNZLmtnwubZYONg.jpg',
+    title: 'Minions: The Rise of Gru',
+    release_date: '2019-09-02',
+    isFavorited: true
+  }
+}
+
+export const WhitoutPoster: Story<MovieBoxProps> = (args) => <MovieBox {...args} />
+
+WhitoutPoster.args = {
+  movie: {
+    id: 438148,
+    poster_path: undefined,
+    title: 'Minions: The Rise of Gru',
+    release_date: '2019-09-02',
+    isFavorited: false
+  }
 }

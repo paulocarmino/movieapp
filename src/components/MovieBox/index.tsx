@@ -3,7 +3,7 @@ import formatDate from '@/utils/formatDate'
 
 export type MovieType = {
   id: number
-  poster_path: string
+  poster_path?: string
   title: string
   release_date: string
   isFavorited: boolean
@@ -11,11 +11,11 @@ export type MovieType = {
 
 export type MovieBoxProps = {
   movie: MovieType
-  handleFavoriteAction: (e: React.MouseEvent<HTMLDivElement>, movie: any, type: string) => void
-  handleBoxClick: (movieId: number) => void
+  handleFavoriteAction?: (e: React.MouseEvent<HTMLDivElement>, movie: any, type: string) => void
+  handleBoxClick?: (movieId: number) => void
 }
 
-const MovieBox = ({ movie, handleFavoriteAction, handleBoxClick }: MovieBoxProps) => {
+const MovieBox = ({ movie, handleFavoriteAction = () => { }, handleBoxClick = () => { } }: MovieBoxProps) => {
   return (
     <div className="relative z-0 w-[180px] h-[267px] cursor-pointer">
 
