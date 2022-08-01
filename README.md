@@ -4,7 +4,7 @@
 <p align="center"><img width=100% src="https://res.cloudinary.com/paulocarmino/image/upload/v1659335399/movieapp_cfv7zd.png"></p>
 
 <p align="center">Experimente o app acessando a url abaixo:</p>
-<p align="center"><a href="https://movieapp-pied.vercel.app/">https://movieapp-pied.vercel.app/</a></p>
+<p align="center"><a href="https://movieapp-pied.vercel.app">https://movieapp-pied.vercel.app</a></p>
 
 # Tecnologias envolvidas
 
