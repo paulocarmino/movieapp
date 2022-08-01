@@ -46,7 +46,7 @@ const DetailsPage = () => {
         <BackButton size={26} onClick={() => router.back()} />
       </div>
 
-      <div className="flex max-h-[1000px]">
+      <div className="flex flex-col-reverse max-h-[1000px] lg:flex-row">
         <div className="flex-1 pr-20">
           <div>
             <div className="block mb-2">
@@ -101,7 +101,7 @@ const DetailsPage = () => {
 
         </div>
 
-        <div className="max-w-[400px]">
+        <div className="mb-4 max-w-[230px] lg:mb-0 lg:max-w-[400px]">
           <img src={`https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`}
             className="block rounded-lg"
           />

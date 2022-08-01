@@ -74,7 +74,7 @@ export default function Home() {
       </form>
 
       <div className='m-auto' >
-        <div className='grid grid-cols-5 grid-flow-row gap-6 mt-4'>
+        <div className='grid grid-cols-2 grid-flow-row gap-6 mt-4 md:grid-cols-3 lg:grid-cols-5'>
 
           {moviesList?.map((movie: any) => {
             return (
