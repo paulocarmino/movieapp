@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EmptyState /> should render the heading 1`] = `
+<div
+  class="flex flex-col items-center my-10"
+>
+  <svg
+    class="mx-auto w-24 h-24 text-gray-100"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+  <h3
+    class="mt-2 text-base font-bold text-gray-100"
+  >
+    Do a search!
+  </h3>
+  <p
+    class="mt-1 text-sm text-gray-400"
+  >
+    Search for a movie above, or try any of the suggestions below:
+  </p>
+  <div
+    class="mt-6 w-full text-center lg:max-w-[500px]"
+  >
+    <span
+      class="inline-flex items-center py-0.5 px-2.5 mx-1 text-xs font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 rounded-full"
+    >
+      <a
+        href="/?search=Minions"
+      >
+        Minions
+      </a>
+    </span>
+    <span
+      class="inline-flex items-center py-0.5 px-2.5 mx-1 text-xs font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 rounded-full"
+    >
+      <a
+        href="/?search=Captain%20Marvel"
+      >
+        Captain Marvel
+      </a>
+    </span>
+    <span
+      class="inline-flex items-center py-0.5 px-2.5 mx-1 text-xs font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 rounded-full"
+    >
+      <a
+        href="/?search=Rambo"
+      >
+        Rambo
+      </a>
+    </span>
+    <span
+      class="inline-flex items-center py-0.5 px-2.5 mx-1 text-xs font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 rounded-full"
+    >
+      <a
+        href="/?search=Mission%20Impossible"
+      >
+        Mission Impossible
+      </a>
+    </span>
+    <span
+      class="inline-flex items-center py-0.5 px-2.5 mx-1 text-xs font-medium text-gray-800 bg-gray-100 hover:bg-gray-300 rounded-full"
+    >
+      <a
+        href="/?search=Spiderman"
+      >
+        Spiderman
+      </a>
+    </span>
+  </div>
+</div>
+`;

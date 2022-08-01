@@ -6,8 +6,7 @@ describe('<EmptyState />', () => {
   it('should render the heading', () => {
     const { container } = render(<EmptyState />)
 
-    expect(screen.getByRole('heading', { name: /EmptyState/i })).toBeInTheDocument()
-
+    expect(screen.getByRole('heading', { name: /Do a search!/i })).toBeInTheDocument()
     expect(container.firstChild).toMatchSnapshot()
   })
 })

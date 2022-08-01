@@ -2,12 +2,12 @@ import { IoMdArrowBack } from 'react-icons/io'
 
 export type BackButtonProps = {
   size: number
-  onClick: () => void
+  action?: () => void
 }
 
-const BackButton = ({ size, onClick }: BackButtonProps) => {
+const BackButton = ({ size, action = () => { } }: BackButtonProps) => {
   return (
-    <div onClick={() => onClick()}>
+    <div data-testid="back-icon" onClick={() => action()}>
       <IoMdArrowBack className='hover:text-gray-600 cursor-pointer' size={size} />
     </div>
   )

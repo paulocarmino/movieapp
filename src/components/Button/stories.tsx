@@ -6,6 +6,11 @@ import Button from '.'
 export default {
   title: 'Button',
   component: Button,
+  parameters: {
+    backgrounds: {
+      default: 'dark'
+    }
+  },
   argTypes: {
     icon: {},
     children: {

@@ -17,7 +17,7 @@ const Template = ({ children }: TemplateProps) => {
       </Head>
 
       <main className='pt-4 w-full xs:w-[700px] h-screen md:w-[768px] lg:w-[1024px]'>
-        <div className='mb-4 cursor-pointer' onClick={() => router.push('/')}>
+        <div data-testid="logo" className='mb-4 cursor-pointer' onClick={() => router.push('/')}>
           <Logo />
         </div>
 

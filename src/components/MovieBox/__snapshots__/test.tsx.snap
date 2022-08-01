@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<MovieBox /> deve renderizar o component 1`] = `
+exports[`<MovieBox /> should render the component 1`] = `
 <div
   class="relative z-0 w-[180px] h-[267px] cursor-pointer"
 >
   <div
     class="group flex flex-col justify-between p-2 h-full hover:bg-slate-200/80 rounded-lg"
+    data-testid="moviebox-action"
   >
     <div>
       <div>

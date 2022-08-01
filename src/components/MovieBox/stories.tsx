@@ -4,6 +4,11 @@ import MovieBox, { MovieBoxProps } from '.'
 export default {
   title: 'MovieBox',
   component: MovieBox,
+  parameters: {
+    backgrounds: {
+      default: 'dark'
+    }
+  },
   argTypes: {
     movie: {
       type: undefined

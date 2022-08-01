@@ -19,7 +19,7 @@ const MovieBox = ({ movie, handleFavoriteAction = () => { }, handleBoxClick = ()
   return (
     <div className="relative z-0 w-[180px] h-[267px] cursor-pointer">
 
-      <div onClick={() => handleBoxClick(movie.id)} className='group flex flex-col justify-between p-2 h-full hover:bg-slate-200/80 rounded-lg'>
+      <div onClick={() => handleBoxClick(movie.id)} data-testid="moviebox-action" className='group flex flex-col justify-between p-2 h-full hover:bg-slate-200/80 rounded-lg'>
         <div>
           {movie?.isFavorited && (
             <div onClick={(e: React.MouseEvent<HTMLDivElement>) => handleFavoriteAction(e, movie, 'unfavorite')}>
@@ -48,7 +48,7 @@ const MovieBox = ({ movie, handleFavoriteAction = () => { }, handleBoxClick = ()
         </div>
       </div>
 
-      {!movie?.poster_path && <div className='flex absolute top-0 left-0 -z-10 justify-center items-center w-full h-full text-3xl text-center text-gray-700 bg-gray-800 rounded-lg'>WHITOUT POSTER</div>}
+      {!movie?.poster_path && <div data-testid="whitout-poster" className='flex absolute top-0 left-0 -z-10 justify-center items-center w-full h-full text-3xl text-center text-gray-700 bg-gray-800 rounded-lg'>WHITOUT POSTER</div>}
       {movie?.poster_path && <img src={`https://image.tmdb.org/t/p/w200/${movie?.poster_path}`} alt={movie?.title} className="absolute top-0 left-0 -z-10 w-full h-full rounded-lg" />}
     </div>
   )
