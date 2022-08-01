@@ -32,7 +32,7 @@
 
 Para ver os components desenvolvidos para esse app no storybook, clique no link abaixo:
 
-[Link para o storybook](http://www.google.com/)
+[https://paulocarmino.github.io/movieapp](https://paulocarmino.github.io/movieapp)
 
 # Rodando o projeto com docker-compose
 
