@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const browserId = req.headers['browser-id']
 
   const tmdbUrl = 'https://api.themoviedb.org/3'
-  const tmdbApiKey = 'fb60b2adcc7b6240727187c16031133e'
+  const tmdbApiKey = process.env.TMDB_API
 
   const { data: tmdbData } = await axios.get(`${tmdbUrl}/search/movie?query=${searchTerm}&api_key=${tmdbApiKey}`)
   const searchResultFromAPI = tmdbData.results

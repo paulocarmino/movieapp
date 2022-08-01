@@ -68,8 +68,8 @@ const DetailsPage = () => {
 
             <h1 className="mb-6 text-5xl font-extrabold tracking-tight">{movieDetails?.original_title}</h1>
             <div className='flex'>
-              {!movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('favorite')} icon={<AiOutlineHeart size={16} />}>Add aos favoritos</Button>}
-              {movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('unfavorite')} icon={<AiFillHeart size={16} />}>Favorito</Button>}
+              {!movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('favorite')} icon={<AiOutlineHeart size={16} />}>Add to Favorites</Button>}
+              {movieDetails?.isFavorited && <Button onClick={() => handleFavoriteAction('unfavorite')} icon={<AiFillHeart size={16} />}>Favorited</Button>}
 
               <div className='ml-2'>
                 <StatGroup icon={<MdOutlinePoll size={20} />} title="Vote Average" value={Number(movieDetails?.vote_average).toFixed(1)} />
