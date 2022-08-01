@@ -11,7 +11,7 @@ export type MovieType = {
 
 export type MovieBoxProps = {
   movie: MovieType
-  handleFavoriteAction?: (e: React.MouseEvent<HTMLDivElement>, movie: any, type: string) => void
+  handleFavoriteAction?: (e: React.MouseEvent<HTMLDivElement>, movieId: number, type: string) => void
   handleBoxClick?: (movieId: number) => void
 }
 

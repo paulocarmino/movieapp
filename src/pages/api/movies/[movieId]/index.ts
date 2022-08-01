@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   })
   const favoritedMoviesIds = browserFavoritedMovies?.favoritedMovies.map(movie => Number(movie.tmdbId))
-  const isFavorited = favoritedMoviesIds?.filter((id: any) => id === movieDetails.id)[0]
+  const isFavorited = favoritedMoviesIds?.filter((id: number) => id === movieDetails.id)[0]
 
   const movie = {
     ...movieDetails,

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useForm } from "react-hook-form"
+import { FieldValues, useForm } from "react-hook-form"
 import { MdClear } from 'react-icons/md'
 import { mutate } from 'swr'
 
@@ -8,7 +8,7 @@ import Button from '@/components/Button'
 import EmptyState from '@/components/EmptyState'
 import IsError from '@/components/IsError'
 import Loading from '@/components/Loading'
-import MovieBox from '@/components/MovieBox'
+import MovieBox, { MovieType } from '@/components/MovieBox'
 import SearchInput from '@/components/SearchInput'
 import searchMovies from '@/queries/searchMovies'
 import axios from '@/utils/axios'
@@ -22,7 +22,7 @@ const Home = () => {
 
   const { moviesList, isLoading, isError } = searchMovies(searchTerm, getBroweserId())
 
-  const onSubmit = ({ searchTerm }: any) => {
+  const onSubmit = ({ searchTerm }: FieldValues) => {
     router.push(`/?search=${searchTerm}`)
   }
 
@@ -104,7 +104,7 @@ const Home = () => {
             </div>
 
             <div className='grid grid-cols-2 grid-flow-row gap-6 mt-8 md:grid-cols-3 lg:grid-cols-5'>
-              {moviesList?.map((movie: any) => {
+              {moviesList?.map((movie: MovieType) => {
                 return (
                   <div key={movie.id}>
                     <MovieBox

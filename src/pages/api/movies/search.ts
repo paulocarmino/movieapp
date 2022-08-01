@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+import { MovieType } from '@/components/MovieBox'
 import axios from '@/utils/axios'
 import { findFavoriteMovies } from '@/utils/helpers'
 import prisma from '@/utils/prisma'
@@ -32,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (favoritedMoviesIds) {
     findFavoriteMovies(favoritedMoviesIds, searchResultFromAPI)
-      .map((movie: any) => {
+      .map((movie: MovieType) => {
         if (movie) {
           return movie.isFavorited = true
         }
