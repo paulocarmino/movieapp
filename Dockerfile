@@ -12,6 +12,7 @@ ENV TMDB_API=${TMDB_API}
 
 COPY . .
 RUN npx prisma generate
+RUN npx prisma migrate deploy
 RUN yarn build
 
 EXPOSE 4000
