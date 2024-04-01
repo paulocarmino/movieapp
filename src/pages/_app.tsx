@@ -1,12 +1,11 @@
 import type { AppProps } from 'next/app'
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 import '@/styles/globals.css'
 import Template from '@/components/Template'
-import { getBroweserId, setBrowserId } from '@/utils/helpers';
+import { getBroweserId, setBrowserId } from '@/utils/helpers'
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-
+function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
   useEffect(() => {
     const browserId = getBroweserId()
 

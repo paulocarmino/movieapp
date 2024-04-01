@@ -10,15 +10,15 @@ services:
       POSTGRES_PASSWORD: xFrBQKZEdZKp
       POSTGRES_DB: movieapp
 
-  app:
-    build: .
-    ports:
-      - 4000:4000
-    command: >
-      sh -c "npx prisma migrate deploy
-      && yarn start -p 4000"
-    environment:
-      DATABASE_URL: postgresql://postgres:xFrBQKZEdZKp@postgres:5432/movieapp?schema=public
-      TMDB_API: fb60b2adcc7b6240727187c16031133e
-    depends_on:
-      - postgres
+  # app:
+  #   build: .
+  #   ports:
+  #     - 4000:4000
+  #   command: >
+  #     sh -c "npx prisma migrate deploy
+  #     && yarn start -p 4000"
+  #   environment:
+  #     DATABASE_URL: postgresql://postgres:xFrBQKZEdZKp@postgres:5432/movieapp?schema=public
+  #     TMDB_API: fb60b2adcc7b6240727187c16031133e
+  #   depends_on:
+  #     - postgres
